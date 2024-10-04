@@ -7,74 +7,44 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Home Page -->
+  <!-- First Frame / Page: Initial Play Button and Intro -->
   <div id="home-page">
     <h1>Today’s Classiko</h1>
     <p>Get 5 chances to guess a classic match</p>
-    <p id="date"></p>
-    <button id="how-to-play-btn">How to Play</button>
+    <p id="date"></p> <!-- This will display today's date in the specified format -->
+    <button id="play-btn">Play</button>
+  </div>
 
-    <div id="how-to-play" style="display:none;">
-      <h2>How to Play</h2>
-      <p>Guess the classic match in 5 tries</p>
-      <p>You start with just the team colours and the score.</p>
-      <p>Guess the two teams by typing them in the boxes or just hit enter to reveal another clue.</p>
-      <p>Reveal more clues with each turn until you guess right. Simple!</p>
-      <p>Guess the year as a bonus.</p>
-      <p>A new match is released daily at 06:00 GMT.</p>
+  <!-- Second Frame / Page: How to Play Instructions and Play Now Button -->
+  <div id="how-to-play-page" style="display: none;">
+    <h2>How to play</h2>
+    <p>Guess the classic match in 5 tries</p>
+    <ul>
+      <li>You start with just the team colours and the score</li>
+      <li>Guess the two teams by typing them in the boxes or just hit enter to reveal another clue</li>
+      <li>Reveal more clues with each turn until you guess right. Simple!</li>
+      <li>Guess the year as a bonus</li>
+    </ul>
+    <button id="play-now-btn">Play Now</button>
+  </div>
+
+  <!-- Game Page with Score, Team Colours, and Input Fields -->
+  <div id="game-page" style="display: none;">
+    <div id="score-panel">
+      <div class="attempts">
+        <div class="football" id="attempt1"></div>
+        <div class="football" id="attempt2"></div>
+        <div class="football" id="attempt3"></div>
+        <div class="football" id="attempt4"></div>
+        <div class="football" id="attempt5"></div>
+      </div>
+      <div class="score-display">Guess the teams!</div>
+      <input type="text" id="team1" placeholder="Enter Team 1">
+      <input type="text" id="team2" placeholder="Enter Team 2">
+      <button id="submit">Submit</button>
     </div>
-  </div>
-
-  <!-- Score Panel and Clues -->
-  <div id="score-panel">
-    <div class="attempts">
-      <div class="football" id="attempt1"></div>
-      <div class="football" id="attempt2"></div>
-      <div class="football" id="attempt3"></div>
-      <div class="football" id="attempt4"></div>
-      <div class="football" id="attempt5"></div>
-    </div>
-    <div class="score-display">Guess the teams!</div>
-    <input type="text" id="team1" placeholder="Enter Team 1">
-    <input type="text" id="team2" placeholder="Enter Team 2">
-    <button id="submit">Submit</button>
-  </div>
-
-  <!-- Clue Panel -->
-  <div id="clue-panel">
-    <p id="clue">Clue: Guess to reveal more details about this match!</p>
-  </div>
-
-  <!-- Win and Unlucky Pages -->
-  <div id="win-page" style="display:none;">
-    <h2>You’ve got it!</h2>
-    <p>Great work!</p>
-    <p>Get the year for a bonus.</p>
-  </div>
-
-  <div id="unlucky-page" style="display:none;">
-    <h2>Sorry, out of guesses this time</h2>
-    <p>Try a new match tomorrow!</p>
-    <p>Thanks for playing</p>
-  </div>
-
-  <!-- Match Win Page -->
-  <div id="match-win-page" style="display:none;">
-    <h2>Unlucky with date but</h2>
-    <p>Congratulations! You got today’s Classiko in <span id="guesses-taken"></span> guesses.</p>
-    <p>See you for another classic match tomorrow!</p>
-    <div id="highlights-link" style="display:none;">
-      <a href="#" id="watch-highlights">Click here to watch goals and highlights of the match</a>
-    </div>
-  </div>
-
-  <!-- Final Win Page -->
-  <div id="final-win-page" style="display:none;">
-    <h2>You got the date bonus!</h2>
-    <p>Congratulations! You got today’s Classiko in <span id="guesses-taken-final"></span> guesses.</p>
-    <p>See you for another classic match tomorrow!</p>
-    <div id="highlights-link-final" style="display:none;">
-      <a href="#" id="watch-highlights-final">Click here to watch goals and highlights of the match</a>
+    <div id="clue-panel">
+      <p id="clue">Clue: Guess to reveal more details about this match!</p>
     </div>
   </div>
 
