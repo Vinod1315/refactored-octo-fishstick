@@ -1,6 +1,28 @@
+// Function to format and display today's date
+function formatDate() {
+  const today = new Date();
+  const options = { day: '2-digit', month: 'short', year: 'numeric' };
+  document.getElementById('date').textContent = today.toLocaleDateString('en-GB', options);
+}
+
+// Call the date function on page load
+window.onload = formatDate;
+
+// Add event listeners to control page transitions
+document.getElementById('play-btn').addEventListener('click', function() {
+  document.getElementById('home-page').style.display = 'none';
+  document.getElementById('how-to-play-page').style.display = 'block';
+});
+
+document.getElementById('play-now-btn').addEventListener('click', function() {
+  document.getElementById('how-to-play-page').style.display = 'none';
+  document.getElementById('game-page').style.display = 'block';
+});
+
+// Existing logic for gameplay, clues, and guesses
 const maxAttempts = 5;
 let currentAttempt = 0;
-const correctTeams = ["Team A", "Team B"]; // Example placeholders for teams
+const correctTeams = ["Team A", "Team B"]; // Placeholder teams
 const clues = [
   "Clue 1: This was a Champions League match.",
   "Clue 2: The final score was 2-1.",
@@ -28,13 +50,10 @@ document.getElementById('submit').addEventListener('click', function() {
 });
 
 function checkGuess(guess) {
-  // Example for basic matching of teams (we will expand this)
   return guess.includes(correctTeams[0].toLowerCase()) && guess.includes(correctTeams[1].toLowerCase());
 }
 
 function displayResult(message) {
-  document.getElementById('score-panel').style.display = 'none';
-  document.getElementById('clue-panel').style.display = 'none';
-  document.getElementById('win-page').style.display = 'block';
-  document.getElementById('result-message').textContent = message;
+  document.getElementById('game-page').style.display = 'none';
+  alert(message); // Temporary result display. Replace with proper UI display as needed.
 }
