@@ -58,8 +58,7 @@ function checkGuess(guess) {
 function displayResult(message) {
   document.getElementById('game-page').style.display = 'none';
   alert(message); // Temporary result display. Replace with proper UI display as needed.
-
-  const maxAttempts = 5;
+const maxAttempts = 5;
 let currentAttempt = 0;
 const correctTeams = ["manchester united", "barcelona"]; // Temporary correct answers
 const correctYear = 2011; // Temporary correct year for the bonus guess
@@ -117,5 +116,6 @@ function displayFinalMessage(message) {
   document.getElementById('final-result').style.display = 'block';
   document.getElementById('final-message').textContent = message;
 }
+
 
 
