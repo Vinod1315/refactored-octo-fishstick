@@ -68,3 +68,10 @@ ul {
   font-size: 0.9em;
   color: grey;
 }
+/* Add these to the bottom of your existing CSS */
+
+#year-guess-page, #final-result {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
