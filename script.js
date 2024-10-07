@@ -118,4 +118,4 @@ function displayFinalMessage(message) {
   document.getElementById('final-message').textContent = message;
 }
 
-}
+
