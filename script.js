@@ -24,12 +24,14 @@ const maxAttempts = 5;
 let currentAttempt = 0;
 const correctTeams = ["Team A", "Team B"]; // Placeholder teams
 const clues = [
-  "Clue 1: This was a Champions League match.",
-  "Clue 2: The final score was 2-1.",
-  "Clue 3: Played at the famous XYZ stadium.",
-  "Clue 4: Team A's striker scored twice.",
-  "Clue 5: It happened in 2020."
+  "Tournament: Champions League",
+  "Venue: Stadium XYZ",
+  "Scorers: Team A's striker scored twice",
+  "Players: Team B had a famous midfielder"
 ];
+
+// Display the match score and team colors on first load
+document.getElementById('match-score').textContent = "2-1"; // Example score
 
 document.getElementById('submit').addEventListener('click', function() {
   const team1 = document.getElementById('team1').value.toLowerCase();
@@ -41,7 +43,7 @@ document.getElementById('submit').addEventListener('click', function() {
   } else {
     currentAttempt++;
     if (currentAttempt >= maxAttempts) {
-      displayResult("Unlucky! You've used all your attempts.");
+      displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
     } else {
       document.getElementById('clue').textContent = clues[currentAttempt - 1];
       document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
