@@ -58,4 +58,13 @@ function checkGuess(guess) {
 function displayResult(message) {
   document.getElementById('game-page').style.display = 'none';
   alert(message); // Temporary result display. Replace with proper UI display as needed.
+
+    /* Add these to the bottom of your existing CSS */
+
+#year-guess-page, #final-result {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
 }
