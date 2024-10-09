@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (year == correctYear) {
       // Correct year guessed
-      displayFinalMessage("Congratulations! You got the year bon");
+      displayFinalMessage("Congratulations! You got the year bonus! See you tomorrow for another classic match.");
     } else {
       // Incorrect year guessed
       displayFinalMessage("Unlucky with the year but Congratulations! See you tomorrow for another classic match.");
