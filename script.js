@@ -104,8 +104,8 @@ const clues = [
 
 // Variables for game logic with scores assigned to specific teams
 const correctTeamsWithScores = [
-  { team: "manchester united", score: 2 },
-  { team: "barcelona", score: 1 }
+  { team: "manchester united", score: 3 },
+  { team: "barcelona", score: 3 }
 ];
 
 // Function to check if the guessed teams are correct
