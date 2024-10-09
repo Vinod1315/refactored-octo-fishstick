@@ -22,27 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('game-page').style.display = 'block';
   });
 
-  // Handle the guessing of teams
-  document.getElementById('submit').addEventListener('click', function() {
-    const team1 = document.getElementById('team1').value.toLowerCase();
-    const team2 = document.getElementById('team2').value.toLowerCase();
-    const guess = [team1, team2];
-
-    if (checkGuess(guess)) {
-      // Teams guessed correctly, move to guessing the year
-      displayResult("Great work! Now guess the year for a bonus.");
-      document.getElementById('game-page').style.display = 'none';
-      document.getElementById('year-guess-page').style.display = 'block';
+  // Handle the guessing of teams with correct score matching
+document.getElementById('submit').addEventListener('click', function() {
+  const team1 = document.getElementById('team1').value.toLowerCase(); // Team for 2 goals
+  const team2 = document.getElementById('team2').value.toLowerCase(); // Team for 1 goal
+  
+  if (checkGuess(team1, team2)) {
+    // Teams guessed correctly, move to guessing the year
+    displayResult("Great work! Now guess the year for a bonus.");
+    document.getElementById('game-page').style.display = 'none';
+    document.getElementById('year-guess-page').style.display = 'block';
+  } else {
+    currentAttempt++;
+    if (currentAttempt >= maxAttempts) {
+      displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
     } else {
-      currentAttempt++;
-      if (currentAttempt >= maxAttempts) {
-        displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
-      } else {
-        document.getElementById('clue').textContent = clues[currentAttempt - 1];
-        document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
-      }
+      document.getElementById('clue').textContent = clues[currentAttempt - 1];
+      document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
     }
-  });
+  }
+});
 
   // Handle the guessing of the year
   document.getElementById('submit-year').addEventListener('click', function() {
@@ -68,6 +67,12 @@ const clues = [
   "Venue: Wembley Stadium",
   "Scorers: Messi, Rooney",
   "Players: Xavi, Giggs"
+];
+
+// Variables for game logic with scores assigned to specific teams
+const correctTeamsWithScores = [
+  { team: "manchester united", score: 2 },
+  { team: "barcelona", score: 1 }
 ];
 
 // Function to check if the guessed teams are correct
