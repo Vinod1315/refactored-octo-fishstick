@@ -22,27 +22,60 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('game-page').style.display = 'block';
   });
 
-  // Handle the guessing of teams with correct score matching
+// Handle the guessing of teams with correct score matching or draw
 document.getElementById('submit').addEventListener('click', function() {
-  const team1 = document.getElementById('team1').value.toLowerCase(); // Team for 2 goals
-  const team2 = document.getElementById('team2').value.toLowerCase(); // Team for 1 goal
+  const team1 = document.getElementById('team1').value.toLowerCase(); // Team in first input field
+  const team2 = document.getElementById('team2').value.toLowerCase(); // Team in second input field
   
-  if (checkGuess(team1, team2)) {
-    // Teams guessed correctly, move to guessing the year
-    displayResult("Great work! Now guess the year for a bonus.");
-    document.getElementById('game-page').style.display = 'none';
-    document.getElementById('year-guess-page').style.display = 'block';
-  } else {
-    currentAttempt++;
-    if (currentAttempt >= maxAttempts) {
-      displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
+  // Check if the game is a draw
+  const isDraw = correctTeamsWithScores[0].score === correctTeamsWithScores[1].score;
+  
+  if (isDraw) {
+    // Use checkGuessForDraw if the game is a draw
+    if (checkGuessForDraw(team1, team2)) {
+      displayResult("Great work! Now guess the year for a bonus.");
+      document.getElementById('game-page').style.display = 'none';
+      document.getElementById('year-guess-page').style.display = 'block';
     } else {
-      document.getElementById('clue').textContent = clues[currentAttempt - 1];
-      document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
+      handleWrongGuess();
+    }
+  } else {
+    // Otherwise, use regular checkGuess
+    if (checkGuess(team1, team2)) {
+      displayResult("Great work! Now guess the year for a bonus.");
+      document.getElementById('game-page').style.display = 'none';
+      document.getElementById('year-guess-page').style.display = 'block';
+    } else {
+      handleWrongGuess();
     }
   }
 });
 
+// Function to handle incorrect guesses
+function handleWrongGuess() {
+  currentAttempt++;
+  if (currentAttempt >= maxAttempts) {
+    displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
+  } else {
+    document.getElementById('clue').textContent = clues[currentAttempt - 1];
+    document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
+  }
+}
+
+
+  // Function to check the guessed teams with score matching
+function checkGuess(team1, team2) {
+  return (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team);
+}
+
+  // Function to check guessed teams for a draw (score is the same for both teams)
+function checkGuessForDraw(team1, team2) {
+  return (
+    (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team) ||
+    (team1 === correctTeamsWithScores[1].team && team2 === correctTeamsWithScores[0].team)
+  );
+}
+  
   // Handle the guessing of the year
   document.getElementById('submit-year').addEventListener('click', function() {
     const year = document.getElementById('year').value;
