@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       displayFinalMessage("Congratulations! You got the year bonus!");
     } else {
       // Incorrect year guessed
-      displayFinalMessage("Close, but no bonus! See you tomorrow for another classic match.");
+      displayFinalMessage("Unlucky with the year but Congratulations! See you tomorrow for another classic match.");
     }
   });
 });
