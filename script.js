@@ -5,6 +5,10 @@ function formatDate() {
   document.getElementById('date').textContent = today.toLocaleDateString('en-GB', options);
 }
 
+// Call the date function on page load
+window.onload = formatDate;
+
+
 // Ensure the buttons are working correctly
 document.addEventListener('DOMContentLoaded', () => {
   
