@@ -87,9 +87,15 @@ function handleWrongGuess() {
   }
 }
 
-// Function to check the guessed teams with score matching
+// Function to check the guessed teams with score matching, allowing either order
 function checkGuess(team1, team2) {
-  return (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team);
+  const team1Guess = team1.trim().toLowerCase();
+  const team2Guess = team2.trim().toLowerCase();
+  const correctTeam1 = correctTeamsWithScores[0].team.trim().toLowerCase();
+  const correctTeam2 = correctTeamsWithScores[1].team.trim().toLowerCase();
+
+  return (team1Guess === correctTeam1 && team2Guess === correctTeam2) || 
+         (team1Guess === correctTeam2 && team2Guess === correctTeam1);
 }
 
 // Function to check guessed teams for a draw (score is the same for both teams)
