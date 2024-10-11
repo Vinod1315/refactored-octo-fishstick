@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM fully loaded and parsed");  // This message should appear in the browser console
+});
+
 // Function to format and display today's date
 function formatDate() {
   const today = new Date();
