@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM fully loaded and parsed");  // This message should appear in the browser console
 });
 
+document.getElementById('play-btn').addEventListener('click', function() {
+  alert("Play button works!");  // Check if the Play button works without DOMContentLoaded
+});
+
 // Function to format and display today's date
 function formatDate() {
   const today = new Date();
