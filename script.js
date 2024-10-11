@@ -138,24 +138,25 @@ function parseCSV(data) {
   const rows = data.split("\n").slice(1); // Skip the header row
   const matches = rows.map(row => {
     const fields = row.split(",");
-    return {
-      team1: fields[0].trim(),
-      team2: fields[1].trim(),
-      score: fields[2].trim(),
-      team1_shirt: fields[3].trim(),
-      team1_shorts: fields[4].trim(),
-      team2_shirt: fields[5].trim(),
-      team2_shorts: fields[6].trim(),
-      tournament: fields[7].trim(),
-      venue: fields[8].trim(),
-      team1_scorers: fields[9].trim(),
-      team2_scorers: fields[10].trim(),
-      team1_players: fields.slice(11, 22),  // Team 1 players
-      team2_players: fields.slice(22, 33),  // Team 2 players
-      link_to_highlights: fields[33].trim(),
-      year: fields[34].trim() // The newly added year field
-    };
-  });
+    if (fields.length >= 34) {  // Check if there are enough fields
+      return {
+        team1: fields[0].trim(),
+        team2: fields[1].trim(),
+        score: fields[2].trim(),
+        team1_shirt: fields[3].trim(),
+        team1_shorts: fields[4].trim(),
+        team2_shirt: fields[5].trim(),
+        team2_shorts: fields[6].trim(),
+        tournament: fields[7].trim(),
+        venue: fields[8].trim(),
+        team1_scorers: fields[9].trim(),
+        team2_scorers: fields[10].trim(),
+        team1_players: fields.slice(11, 22),  // Team 1 players
+        team2_players: fields.slice(22, 33),  // Team 2 players
+        link_to_highlights: fields[33] ? fields[33].trim() : ""  // Check if field 33 exists
+      };
+    }
+  }).filter(Boolean);  // Filter out any undefined rows
   return matches;
 }
 
