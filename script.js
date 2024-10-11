@@ -174,7 +174,7 @@ function startNewMatch(matches) {
   // Use modulo to select a match based on the current day of the year
   const matchIndex = dayOfYear % matches.length;
   const selectedMatch = matches[matchIndex];
-  
+
   console.log(selectedMatch);  // This will show the match details in the browser's console
 
   correctTeamsWithScores = [
@@ -185,11 +185,18 @@ function startNewMatch(matches) {
   clues = [
     `Tournament: ${selectedMatch.tournament}`,
     `Venue: ${selectedMatch.venue}`,
-    `Team 1 Scorers: ${selectedMatch.team1_scorers}`,
-    `Team 2 Scorers: ${selectedMatch.team2_scorers}`,
+    `Scorers: Team 1 - ${selectedMatch.team1_scorers}, Team 2 - ${selectedMatch.team2_scorers}`,  // Combined scorers into one clue
     `Team 1 Players: ${selectedMatch.team1_players.join(", ")}`,
     `Team 2 Players: ${selectedMatch.team2_players.join(", ")}`
   ];
+
+  // Update the match score on the page
+  document.getElementById('match-score').textContent = selectedMatch.score;
+
+  // Update the team colors
+  document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
+  document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
+}
 
  // Update the match score on the page
 document.getElementById('match-score').textContent = selectedMatch.score;
