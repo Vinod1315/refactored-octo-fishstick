@@ -11,11 +11,15 @@ window.onload = formatDate;
 // Ensure the buttons are working correctly
 document.addEventListener('DOMContentLoaded', () => {
   // Play button on the first page
-  document.getElementById('play-btn').addEventListener('click', function() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('how-to-play-page').style.display = 'block';
-  });
+document.getElementById('play-now-btn').addEventListener('click', function() {
+  document.getElementById('how-to-play-page').style.display = 'none';
+  document.getElementById('game-page').style.display = 'block';
 
+  // Dynamically update the match score based on the correctTeamsWithScores array
+  document.getElementById('match-score').textContent = 
+    correctTeamsWithScores[0].score + "-" + correctTeamsWithScores[1].score;
+});
+  
   // Play now button on the second page
   document.getElementById('play-now-btn').addEventListener('click', function() {
     document.getElementById('how-to-play-page').style.display = 'none';
