@@ -82,7 +82,8 @@ function handleWrongGuess() {
   if (currentAttempt >= maxAttempts) {
     displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
   } else {
-    document.getElementById('clue').textContent = clues[currentAttempt - 1];
+    // Ensure the scorers clue is treated as a single clue
+    document.getElementById('clue').textContent = clues[currentAttempt - 1];  
     document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
   }
 }
