@@ -97,7 +97,6 @@ function checkGuessForDraw(team1, team2) {
       displayFinalMessage("Unlucky with the year but Congratulations! See you tomorrow for another classic match.");
     }
   });
-});
 
 // Variables for game logic
 const maxAttempts = 5;
