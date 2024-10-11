@@ -75,3 +75,12 @@ ul {
   text-align: center;
   margin-top: 20px;
 }
+
+/* Add team color blocks styling */
+.color-box {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  margin-right: 10px;
+  border: 1px solid #000;
+}
