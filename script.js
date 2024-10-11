@@ -8,7 +8,6 @@ function formatDate() {
 // Call the date function on page load
 window.onload = formatDate;
 
-
 // Ensure the buttons are working correctly
 document.addEventListener('DOMContentLoaded', () => {
   
@@ -30,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle the guessing of teams with correct score matching or draw
   document.getElementById('submit').addEventListener('click', function() {
-    const team1 = document.getElementById('team1').value.toLowerCase(); // Team in first input field
-    const team2 = document.getElementById('team2').value.toLowerCase(); // Team in second input field
+    const team1 = document.getElementById('team1').value.toLowerCase(); 
+    const team2 = document.getElementById('team2').value.toLowerCase();
     
     // Check if the game is a draw
     const isDraw = correctTeamsWithScores[0].score === correctTeamsWithScores[1].score;
@@ -55,6 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
         handleWrongGuess();
       }
     }
+  });
+
+  // Add CSV Loading functions here:
+  loadCSV(function(matches) {
+    startNewMatch(matches);  // Start the game with a specific match based on date
   });
 
   // Handle the guessing of the year
@@ -124,4 +128,74 @@ function displayFinalMessage(message) {
   document.getElementById('year-guess-page').style.display = 'none';
   document.getElementById('final-result').style.display = 'block';
   document.getElementById('final-message').textContent = message;
+}
+
+// Function to load CSV and parse match data
+function loadCSV(callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "matches.csv", true);  // Ensure "matches.csv" is in the root of your repository
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const data = xhr.responseText;
+      const parsedData = parseCSV(data);
+      callback(parsedData);
+    }
+  };
+  xhr.send();
+}
+
+// Function to parse CSV data into an array of match objects
+function parseCSV(data) {
+  const rows = data.split("\n").slice(1); // Skip the header row
+  const matches = rows.map(row => {
+    const fields = row.split(",");
+    return {
+      team1: fields[0].trim(),
+      team2: fields[1].trim(),
+      score: fields[2].trim(),
+      team1_shirt: fields[3].trim(),
+      team1_shorts: fields[4].trim(),
+      team2_shirt: fields[5].trim(),
+      team2_shorts: fields[6].trim(),
+      tournament: fields[7].trim(),
+      venue: fields[8].trim(),
+      team1_scorers: fields[9].trim(),
+      team2_scorers: fields[10].trim(),
+      team1_players: fields.slice(11, 22),  // Team 1 players
+      team2_players: fields.slice(22, 33),  // Team 2 players
+      link_to_highlights: fields[33].trim() // Link to video highlights
+    };
+  });
+  return matches;
+}
+
+// Function to start a new match from the loaded matches
+function startNewMatch(matches) {
+  const today = new Date();
+  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+  
+  // Use modulo to select a match based on the current day of the year
+  const matchIndex = dayOfYear % matches.length;
+  const selectedMatch = matches[matchIndex];
+  
+  correctTeamsWithScores = [
+    { team: selectedMatch.team1, score: selectedMatch.score.split("-")[0] },
+    { team: selectedMatch.team2, score: selectedMatch.score.split("-")[1] }
+  ];
+  correctYear = selectedMatch.year;
+  clues = [
+    `Tournament: ${selectedMatch.tournament}`,
+    `Venue: ${selectedMatch.venue}`,
+    `Team 1 Scorers: ${selectedMatch.team1_scorers}`,
+    `Team 2 Scorers: ${selectedMatch.team2_scorers}`,
+    `Team 1 Players: ${selectedMatch.team1_players.join(", ")}`,
+    `Team 2 Players: ${selectedMatch.team2_players.join(", ")}`
+  ];
+
+  // Update the match score on the page
+  document.getElementById('match-score').textContent = selectedMatch.score;
+  
+  // Update the team colors
+  document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
+  document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
 }
