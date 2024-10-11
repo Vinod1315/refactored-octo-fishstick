@@ -11,49 +11,45 @@ window.onload = formatDate;
 // Ensure the buttons are working correctly
 document.addEventListener('DOMContentLoaded', () => {
   // Play button on the first page
-document.getElementById('play-now-btn').addEventListener('click', function() {
-  document.getElementById('how-to-play-page').style.display = 'none';
-  document.getElementById('game-page').style.display = 'block';
-
-  // Dynamically update the match score based on the correctTeamsWithScores array
-  document.getElementById('match-score').textContent = 
-    correctTeamsWithScores[0].score + "-" + correctTeamsWithScores[1].score;
-});
-  
-  // Play now button on the second page
   document.getElementById('play-now-btn').addEventListener('click', function() {
     document.getElementById('how-to-play-page').style.display = 'none';
     document.getElementById('game-page').style.display = 'block';
+
+    // Dynamically update the match score based on the correctTeamsWithScores array
+    document.getElementById('match-score').textContent = 
+      correctTeamsWithScores[0].score + "-" + correctTeamsWithScores[1].score;
   });
 
-// Handle the guessing of teams with correct score matching or draw
-document.getElementById('submit').addEventListener('click', function() {
-  const team1 = document.getElementById('team1').value.toLowerCase(); // Team in first input field
-  const team2 = document.getElementById('team2').value.toLowerCase(); // Team in second input field
-  
-  // Check if the game is a draw
-  const isDraw = correctTeamsWithScores[0].score === correctTeamsWithScores[1].score;
-  
-  if (isDraw) {
-    // Use checkGuessForDraw if the game is a draw
-    if (checkGuessForDraw(team1, team2)) {
-      displayResult("Great work! Now guess the year for a bonus.");
-      document.getElementById('game-page').style.display = 'none';
-      document.getElementById('year-guess-page').style.display = 'block';
+  // Handle the guessing of teams with correct score matching or draw
+  document.getElementById('submit').addEventListener('click', function() {
+    const team1 = document.getElementById('team1').value.toLowerCase(); // Team in first input field
+    const team2 = document.getElementById('team2').value.toLowerCase(); // Team in second input field
+    
+    // Check if the game is a draw
+    const isDraw = correctTeamsWithScores[0].score === correctTeamsWithScores[1].score;
+    
+    if (isDraw) {
+      // Use checkGuessForDraw if the game is a draw
+      if (checkGuessForDraw(team1, team2)) {
+        displayResult("Great work! Now guess the year for a bonus.");
+        document.getElementById('game-page').style.display = 'none';
+        document.getElementById('year-guess-page').style.display = 'block';
+      } else {
+        handleWrongGuess();
+      }
     } else {
-      handleWrongGuess();
+      // Otherwise, use regular checkGuess
+      if (checkGuess(team1, team2)) {
+        displayResult("Great work! Now guess the year for a bonus.");
+        document.getElementById('game-page').style.display = 'none';
+        document.getElementById('year-guess-page').style.display = 'block';
+      } else {
+        handleWrongGuess();
+      }
     }
-  } else {
-    // Otherwise, use regular checkGuess
-    if (checkGuess(team1, team2)) {
-      displayResult("Great work! Now guess the year for a bonus.");
-      document.getElementById('game-page').style.display = 'none';
-      document.getElementById('year-guess-page').style.display = 'block';
-    } else {
-      handleWrongGuess();
-    }
-  }
+  });
 });
+
 
 // Function to handle incorrect guesses
 function handleWrongGuess() {
