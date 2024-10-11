@@ -103,20 +103,9 @@ function checkGuessForDraw(team1, team2) {
 // Variables for game logic
 const maxAttempts = 5;
 let currentAttempt = 0;
-const correctTeams = ["manchester united", "barcelona"];
-const correctYear = 2011;
-const clues = [
-  "Tournament: Champions League",
-  "Venue: Wembley Stadium",
-  "Scorers: Messi, Rooney",
-  "Players: Xavi, Giggs"
-];
-
-// Variables for game logic with scores assigned to specific teams
-const correctTeamsWithScores = [
-  { team: "manchester united", score: 3 },
-  { team: "barcelona", score: 3 }
-];
+let correctYear; // Updated to be loaded from the CSV
+let correctTeamsWithScores;
+let clues = [];
 
 // Display the result message
 function displayResult(message) {
@@ -163,7 +152,8 @@ function parseCSV(data) {
       team2_scorers: fields[10].trim(),
       team1_players: fields.slice(11, 22),  // Team 1 players
       team2_players: fields.slice(22, 33),  // Team 2 players
-      link_to_highlights: fields[33].trim() // Link to video highlights
+      link_to_highlights: fields[33].trim(),
+      year: fields[34].trim() // The newly added year field
     };
   });
   return matches;
