@@ -184,10 +184,13 @@ function startNewMatch(matches) {
     `Team 2 Players: ${selectedMatch.team2_players.join(", ")}`
   ];
 
-  // Update the match score on the page
-  document.getElementById('match-score').textContent = selectedMatch.score;
+ // Update the match score on the page
+document.getElementById('match-score').textContent = selectedMatch.score;
 
-  // Update the team colors
-  document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
-  document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
+// Add the team color boxes with the correct colors
+document.getElementById('team1-color').classList.add('color-box');
+document.getElementById('team2-color').classList.add('color-box');
+document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
+document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
+
 }
