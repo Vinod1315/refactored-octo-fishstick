@@ -12,10 +12,12 @@ window.onload = formatDate;
 document.addEventListener('DOMContentLoaded', () => {
   
   // Play button on the first page
-  document.getElementById('play-btn').addEventListener('click', function() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('how-to-play-page').style.display = 'block';
-  });
+ document.getElementById('play-btn').addEventListener('click', function() {
+  console.log("Play button clicked");  // This will print in the browser console when the button is clicked
+  document.getElementById('home-page').style.display = 'none';
+  document.getElementById('how-to-play-page').style.display = 'block';
+});
+
   
   // Play Now button on the second page
   document.getElementById('play-now-btn').addEventListener('click', function() {
