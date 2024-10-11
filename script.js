@@ -10,7 +10,14 @@ window.onload = formatDate;
 
 // Ensure the buttons are working correctly
 document.addEventListener('DOMContentLoaded', () => {
+  
   // Play button on the first page
+  document.getElementById('play-btn').addEventListener('click', function() {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('how-to-play-page').style.display = 'block';
+  });
+  
+  // Play Now button on the second page
   document.getElementById('play-now-btn').addEventListener('click', function() {
     document.getElementById('how-to-play-page').style.display = 'none';
     document.getElementById('game-page').style.display = 'block';
