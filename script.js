@@ -1,11 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM fully loaded and parsed");  // This message should appear in the browser console
-});
-
-document.getElementById('play-btn').addEventListener('click', function() {
-  alert("Play button works!");  // Check if the Play button works without DOMContentLoaded
-});
-
 // Function to format and display today's date
 function formatDate() {
   const today = new Date();
@@ -13,19 +5,14 @@ function formatDate() {
   document.getElementById('date').textContent = today.toLocaleDateString('en-GB', options);
 }
 
-// Call the date function on page load
-window.onload = formatDate;
-
 // Ensure the buttons are working correctly
 document.addEventListener('DOMContentLoaded', () => {
   
   // Play button on the first page
-document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('play-btn').addEventListener('click', function() {
-    alert("Play button works!");  // This alert will pop up when the button is clicked
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('how-to-play-page').style.display = 'block';
   });
-});
-
   
   // Play Now button on the second page
   document.getElementById('play-now-btn').addEventListener('click', function() {
@@ -65,34 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-});
 
-
-// Function to handle incorrect guesses
-function handleWrongGuess() {
-  currentAttempt++;
-  if (currentAttempt >= maxAttempts) {
-    displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
-  } else {
-    document.getElementById('clue').textContent = clues[currentAttempt - 1];
-    document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
-  }
-}
-
-
-  // Function to check the guessed teams with score matching
-function checkGuess(team1, team2) {
-  return (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team);
-}
-
-  // Function to check guessed teams for a draw (score is the same for both teams)
-function checkGuessForDraw(team1, team2) {
-  return (
-    (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team) ||
-    (team1 === correctTeamsWithScores[1].team && team2 === correctTeamsWithScores[0].team)
-  );
-}
-  
   // Handle the guessing of the year
   document.getElementById('submit-year').addEventListener('click', function() {
     const year = document.getElementById('year').value;
@@ -106,6 +66,31 @@ function checkGuessForDraw(team1, team2) {
     }
   });
 
+});
+
+// Function to handle incorrect guesses
+function handleWrongGuess() {
+  currentAttempt++;
+  if (currentAttempt >= maxAttempts) {
+    displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
+  } else {
+    document.getElementById('clue').textContent = clues[currentAttempt - 1];
+    document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
+  }
+}
+
+// Function to check the guessed teams with score matching
+function checkGuess(team1, team2) {
+  return (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team);
+}
+
+// Function to check guessed teams for a draw (score is the same for both teams)
+function checkGuessForDraw(team1, team2) {
+  return (
+    (team1 === correctTeamsWithScores[0].team && team2 === correctTeamsWithScores[1].team) ||
+    (team1 === correctTeamsWithScores[1].team && team2 === correctTeamsWithScores[0].team)
+  );
+}
 
 // Variables for game logic
 const maxAttempts = 5;
@@ -124,11 +109,6 @@ const correctTeamsWithScores = [
   { team: "manchester united", score: 3 },
   { team: "barcelona", score: 3 }
 ];
-
-// Function to check if the guessed teams are correct
-function checkGuess(guess) {
-  return guess.includes(correctTeams[0]) && guess.includes(correctTeams[1]);
-}
 
 // Display the result message
 function displayResult(message) {
