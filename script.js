@@ -169,35 +169,39 @@ function parseCSV(data) {
 
 // Function to start a new match from the loaded matches
 function startNewMatch(matches) {
-  const today = new Date();
-  const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+  if (matches && matches.length > 0) {
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 
-  // Use modulo to select a match based on the current day of the year
-  const matchIndex = dayOfYear % matches.length;
-  const selectedMatch = matches[matchIndex];
+    // Use modulo to select a match based on the current day of the year
+    const matchIndex = dayOfYear % matches.length;
+    const selectedMatch = matches[matchIndex];
 
-  console.log(selectedMatch);  // This will show the match details in the browser's console
+    console.log(selectedMatch);  // Log the match details to the console for debugging
 
-  correctTeamsWithScores = [
-    { team: selectedMatch.team1, score: selectedMatch.score.split("-")[0] },
-    { team: selectedMatch.team2, score: selectedMatch.score.split("-")[1] }
-  ];
-  correctYear = selectedMatch.year;
-  clues = [
-  `Tournament: ${selectedMatch.tournament}`,
-  `Venue: ${selectedMatch.venue}`,
-  `Scorers: Team 1 - ${selectedMatch.team1_scorers}, Team 2 - ${selectedMatch.team2_scorers}`,
-  `Players: Team 1 - ${selectedMatch.team1_players.join(", ")}, Team 2 - ${selectedMatch.team2_players.join(", ")}`
-];
+    correctTeamsWithScores = [
+      { team: selectedMatch.team1, score: selectedMatch.score.split("-")[0] },
+      { team: selectedMatch.team2, score: selectedMatch.score.split("-")[1] }
+    ];
+    correctYear = selectedMatch.year;
+    clues = [
+      `Tournament: ${selectedMatch.tournament}`,
+      `Venue: ${selectedMatch.venue}`,
+      `Scorers: Team 1 - ${selectedMatch.team1_scorers}, Team 2 - ${selectedMatch.team2_scorers}`,  
+      `Players: Team 1 - ${selectedMatch.team1_players.join(", ")}, Team 2 - ${selectedMatch.team2_players.join(", ")}`
+    ];
 
+    // Update the match score on the page
+    document.getElementById('match-score').textContent = selectedMatch.score;
 
-  // Update the match score on the page
-  document.getElementById('match-score').textContent = selectedMatch.score;
-
-  // Update the team colors
-  document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
-  document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
+    // Update the team colors
+    document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
+    document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
+  } else {
+    console.error("No matches loaded or CSV file is empty.");
+  }
 }
+
 
  // Update the match score on the page
 document.getElementById('match-score').textContent = selectedMatch.score;
