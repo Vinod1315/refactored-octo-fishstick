@@ -199,9 +199,6 @@ function startNewMatch(matches) {
   document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
 }
 
- // Update the match score on the page
-document.getElementById('match-score').textContent = selectedMatch.score;
-
 // Add the team color boxes with the correct colors
 document.getElementById('team1-color').classList.add('color-box');
 document.getElementById('team2-color').classList.add('color-box');
