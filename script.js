@@ -207,4 +207,3 @@ document.getElementById('team1-color').classList.add('color-box');
 document.getElementById('team2-color').classList.add('color-box');
 document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
 document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
-}
