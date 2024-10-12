@@ -184,12 +184,11 @@ function startNewMatch(matches) {
   ];
   correctYear = selectedMatch.year;
   clues = [
-    `Tournament: ${selectedMatch.tournament}`,
-    `Venue: ${selectedMatch.venue}`,
-    `Scorers: Team 1 - ${selectedMatch.team1_scorers}, Team 2 - ${selectedMatch.team2_scorers}`,  
-    `Team 1 Players: ${selectedMatch.team1_players.join(", ")}`,
-    `Team 2 Players: ${selectedMatch.team2_players.join(", ")}`
-  ];
+  `Tournament: ${selectedMatch.tournament}`,
+  `Venue: ${selectedMatch.venue}`,
+  `Scorers: Team 1 - ${selectedMatch.team1_scorers}, Team 2 - ${selectedMatch.team2_scorers}`,  
+  `Players: Team 1 - ${selectedMatch.team1_players.join(", ")}, Team 2 - ${selectedMatch.team2_players.join(", ")}`
+];
 
   // Update the match score and colors on the page after selectedMatch is properly set
   document.getElementById('match-score').textContent = selectedMatch.score;
