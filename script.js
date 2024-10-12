@@ -200,7 +200,6 @@ function startNewMatch(matches) {
   } else {
     console.error("No matches loaded or CSV file is empty.");
   }
-}
 
 
  // Update the match score on the page
