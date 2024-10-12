@@ -1,1 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+#home-page, #how-to-play-page, #game-page {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  font-size: 1.5em;
+}
+
+#score-panel {
+  margin-top: 20px;
+}
+
+input {
+  padding: 10px;
+  margin: 10px;
+  font-size: 1em;
+  width: calc(100% - 40px);
+  max-width: 500px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #5cdb95;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.football {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('football.png'); /* Placeholder for football icon */
+  background-size: cover;
+  margin: 5px;
+}
+
+.attempts {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.daily-release {
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: grey;
+}
+/* Add these to the bottom of your existing CSS */
+
+#year-guess-page, #final-result {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Add team color blocks styling */
+.color-box {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  margin-right: 10px;
+  border: 1px solid #000;
+}
