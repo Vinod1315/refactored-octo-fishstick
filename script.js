@@ -88,6 +88,19 @@ function handleWrongGuess() {
   }
 }
 
+function displayMessage(team1Correct, team2Correct) {
+  let message = '';
+  if (team1Correct && team2Correct) {
+    message = ''; // No message if both teams are correct
+  } else if (team1Correct || team2Correct) {
+    message = 'Well done! One more to get.';
+  } else {
+    message = 'Not quite! Guess again.';
+  }
+  document.getElementById('feedback-message').textContent = message;  // This updates the message on the page
+}
+
+
 // Function to check the guessed teams with score matching, allowing either order
 function checkGuess(team1, team2) {
   const team1Guess = team1.trim().toLowerCase();
@@ -95,8 +108,22 @@ function checkGuess(team1, team2) {
   const correctTeam1 = correctTeamsWithScores[0].team.trim().toLowerCase();
   const correctTeam2 = correctTeamsWithScores[1].team.trim().toLowerCase();
 
-  return (team1Guess === correctTeam1 && team2Guess === correctTeam2) || 
-         (team1Guess === correctTeam2 && team2Guess === correctTeam1);
+  if (team1Guess === correctTeam1 || team2Guess === correctTeam1) {
+    document.getElementById('team1').value = correctTeam1;
+    document.getElementById('team1').disabled = true; // Disable team1 input field
+  }
+
+  if (team1Guess === correctTeam2 || team2Guess === correctTeam2) {
+    document.getElementById('team2').value = correctTeam2;
+    document.getElementById('team2').disabled = true; // Disable team2 input field
+  }
+
+  const team1Correct = (team1Guess === correctTeam1 || team2Guess === correctTeam1);
+  const team2Correct = (team1Guess === correctTeam2 || team2Guess === correctTeam2);
+
+  displayMessage(team1Correct, team2Correct); // Call the function here
+
+  return (team1Correct && team2Correct);
 }
 
 // Function to check guessed teams for a draw (score is the same for both teams)
@@ -113,6 +140,7 @@ let currentAttempt = 0;
 let correctYear; // Updated to be loaded from the CSV
 let correctTeamsWithScores;
 let clues = [];
+
 
 // Display the result message
 function displayResult(message) {
