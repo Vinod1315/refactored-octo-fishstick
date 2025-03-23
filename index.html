@@ -3,16 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta name="color-scheme" content="light">
   <title>Classiko - Football Quiz Game</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong|Poppins&display=swap">
+
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
   <!-- First Frame / Page: Initial Play Button and Intro -->
   <div id="home-page">
     <h1>Today’s Classiko</h1>
-    <p>Get 5 chances to guess a classic match</p>
+    <p>Guess the classic match in 5 tries</p>
     <p id="date"></p> <!-- Displays today's date in the specified format -->
-    <button id="play-btn">Play</button>
+    <div class="playbtn"><button id="play-btn">Play</button></div>
   </div>
 
   <!-- How to Play Page -->
@@ -25,16 +32,67 @@
       <li>Reveal more clues with each turn until you guess right. Simple!</li>
       <li>Guess the year as a bonus</li>
     </ul>
-    <button id="play-now-btn">Play Now</button>
+    <div class="button-c"><button id="play-now-btn">Play Now</button></div>
     <p class="daily-release">A new match is released daily at 06:00 GMT.</p>
   </div>
 
 <!-- Game Page with Score, Team Colours, and Input Fields -->
 <div id="game-page" style="display: none;">
   <div id="score-panel">
-    <h3 id="match-score">2-1</h3> <!-- Placeholder for dynamic score -->
-    <div id="team1-color" class="team-color"></div> <!-- Team 1 color block -->
-    <div id="team2-color" class="team-color"></div> <!-- Team 2 color block -->
+    <div class="football-icon">
+      <i id="football-1" class="fa-solid fa-futbol"></i>
+      <i id="football-2" class="fa-solid fa-futbol"></i>
+      <i id="football-3" class="fa-solid fa-futbol"></i>
+      <i id="football-4" class="fa-solid fa-futbol"></i>
+      <i id="football-5" class="fa-solid fa-futbol"></i>
+    </div>
+    <!-- <h3 id="match-score">2-1</h3> Placeholder for dynamic score -->
+    
+    
+    <div id="team1-color" class="team-color">
+      <!-- <i id="team1-color1" class="fa-solid fa-shirt" style="font-size:48px;"></i> -->
+      <svg id="team1-color1" width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sleeves -->
+        <path d="M10,20 L30,10 L30,40 L10,40 Z" fill="white" stroke="black" stroke-width="1"/>
+        <path d="M90,20 L70,10 L70,40 L90,40 Z" fill="white" stroke="black" stroke-width="1"/>
+        
+        <!-- Body -->
+        <path d="M30,10 L70,10 L70,80 L30,80 Z" fill="white" stroke="black" stroke-width="1"/>
+        
+        <!-- Neck -->
+        <rect x="40" y="10" width="20" height="10" fill="black"/>
+    </svg>
+    <svg id="shortsIcon1" width="40" height="40" viewBox="0 0 332 251" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.12314 0H323.846L331.658 250.5H178.827L166.073 180.355L153.695 250.5H0.873657L7.12314 0Z"/>
+    </svg>
+      
+      <!-- <span id="score-team1"></span>   -->
+    </div> <!-- Team 1 color block -->
+    
+    <span class="vs">VS</span>
+    
+    <div id="team2-color" class="team-color">
+      <!-- <i id="team2-color1" class="fa-solid fa-shirt" style="font-size:48px;"></i> -->
+      <svg id="team2-color1" width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sleeves -->
+        <path d="M10,20 L30,10 L30,40 L10,40 Z" fill="white" stroke="black" stroke-width="1"/>
+        <path d="M90,20 L70,10 L70,40 L90,40 Z" fill="white" stroke="black" stroke-width="1"/>
+        
+        <!-- Body -->
+        <path d="M30,10 L70,10 L70,80 L30,80 Z" fill="white" stroke="black" stroke-width="1"/>
+        
+        <!-- Neck -->
+        <rect x="40" y="10" width="20" height="10" fill="white"/>
+    </svg>
+      
+    <svg id="shortsIcon2" width="40" height="40" viewBox="0 0 332 251" fill="black" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.12314 0H323.846L331.658 250.5H178.827L166.073 180.355L153.695 250.5H0.873657L7.12314 0Z"/>
+    </svg>
+
+      
+      <!-- <span id="score-team2"></span> -->
+    </div> <!-- Team 2 color block -->
+    <div class="score-f"><span id="score-team1"></span>-<span id="score-team2"></span></div>
     <div class="attempts">
       <div class="football" id="attempt1"></div>
       <div class="football" id="attempt2"></div>
@@ -42,13 +100,14 @@
       <div class="football" id="attempt4"></div>
       <div class="football" id="attempt5"></div>
     </div>
-    <div class="score-display">Guess the teams!</div>
-    <input type="text" id="team1" placeholder="Type team name then press enter">
+    <div id="score-display" class="score-display">Guess the teams</div>
+    <input type="text" id="team1" placeholder="Type team name">
     <input type="text" id="team2" placeholder="Type team name then press enter">
-    <button id="submit">Submit</button>
+    <div class="submitbtn"><button id="submit">Enter</button></div>
+    <h2 id="ply-tmr" style="display: none;">Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing</h2>
   </div>
   <div id="clue-panel">
-    <p id="clue">Clue: Guess to reveal more details about this match!</p>
+    <div id="clue"><spam id="first-text">Type in the team names and hit enter.  Or just hit enter if you have no guesses.</spam></div>
   </div>
   <p id="feedback-message"></p>
 </div>
@@ -60,10 +119,20 @@
 <div id="year-guess-page" style="display: none;">
   <h2>Guess the year for a bonus!</h2>
   <input type="text" id="year" placeholder="Type the year and press enter">
-  <button id="submit-year">Submit Year</button>
+  <button id="submit-year">Enter</button>
 </div>
 
 <div id="final-result" style="display: none;">
+  <div id="football-icon" class="football-icon" style="display: none;">
+    <i id="foot-1" class="fa-solid fa-futbol"></i>
+    <i id="foot-2" class="fa-solid fa-futbol"></i>
+    <i id="foot-3" class="fa-solid fa-futbol"></i>
+    <i id="foot-4" class="fa-solid fa-futbol"></i>
+    <i id="foot-5" class="fa-solid fa-futbol"></i>
+  </div>
+  
+
+  <div id="share-btn" class="share-btn" style="display: none;"><a id="whatsapp-share" href="#" target="_blank"><span>Share</span><img src="img/share.png" /></a></div>
   <h2 id="final-message"></h2>
   <p id="final-instruction"></p>
   <button id="play-again" style="display: none;">Play Again</button>
