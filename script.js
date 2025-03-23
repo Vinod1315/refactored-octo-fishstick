@@ -14,23 +14,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Play button on the first page
   document.getElementById('play-btn').addEventListener('click', function() {
     document.getElementById('home-page').style.display = 'none';
-    document.getElementById('how-to-play-page').style.display = 'block';
+    document.getElementById('how-to-play-page').style.display = 'inline';
   });
   
   // Play Now button on the second page
   document.getElementById('play-now-btn').addEventListener('click', function() {
     document.getElementById('how-to-play-page').style.display = 'none';
-    document.getElementById('game-page').style.display = 'block';
+    document.getElementById('game-page').style.display = 'inline';
 
     // Dynamically update the match score based on the correctTeamsWithScores array
-    document.getElementById('match-score').textContent = 
-      correctTeamsWithScores[0].score + "-" + correctTeamsWithScores[1].score;
+    //document.getElementById('match-score').textContent = correctTeamsWithScores[0].score + "-" + correctTeamsWithScores[1].score;
+    document.getElementById('score-team1').textContent = correctTeamsWithScores[0].score;
+    document.getElementById('score-team2').textContent = correctTeamsWithScores[1].score;  
   });
 
   // Handle the guessing of teams with correct score matching or draw
   document.getElementById('submit').addEventListener('click', function() {
-    const team1 = document.getElementById('team1').value.toLowerCase(); 
-    const team2 = document.getElementById('team2').value.toLowerCase();
+    const team1 = document.getElementById('team1').value.toUpperCase(); 
+    const team2 = document.getElementById('team2').value.toUpperCase();
     
     // Check if the game is a draw
     const isDraw = correctTeamsWithScores[0].score === correctTeamsWithScores[1].score;
@@ -69,8 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Correct year guessed
       displayFinalMessage("Congratulations! You got the year bonus! See you tomorrow for another classic match.");
     } else {
+      let result = maxAttempts - currentAttempt;
+      document.getElementById("whatsapp-share").href = `https://wa.me/?text=Classiko: ${result}/${maxAttempts}`;
       // Incorrect year guessed
-      displayFinalMessage("Unlucky with the year but Congratulations! See you tomorrow for another classic match.");
+      displayFinalMessage("Unlucky with the year but Congratulations!<br>---------------------<br> See you tomorrow for another classic match.");
+      document.getElementById("share-btn").style.display = 'inline-flex';
+      document.getElementById("football-icon").style.display = 'block';
     }
   });
 
@@ -78,12 +83,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Function to handle incorrect guesses
 function handleWrongGuess() {
+  for (let i = 1; i <= currentAttempt; i++) {
+    document.getElementById('football-' + i).style.color = 'red';
+  }
   currentAttempt++;
+  document.getElementById('football-'+currentAttempt).style.color = 'red';
+  document.getElementById('foot-'+currentAttempt).style.color = 'red';
+  //document.getElementById('football-result').textContent = currentAttempt;
   if (currentAttempt >= maxAttempts) {
+    
     displayResult("Sorry, out of guesses this time. Try a new match tomorrow! Thanks for playing");
+    document.getElementById('team1').disabled = true; 
+    document.getElementById('team2').disabled = true; 
+    document.getElementById('submit').style.display = 'none'; 
+    document.getElementById('ply-tmr').style.display = 'block';
+    
   } else {
     // Ensure the scorers clue is treated as a single clue
-    document.getElementById('clue').textContent = clues[currentAttempt - 1];  
+    //document.getElementById('clue').textContent = clues[currentAttempt - 1];  
+    let clueContainer = document.getElementById('clue');
+    clueContainer.innerHTML = `<p>${clues[currentAttempt - 1]}</p>` + clueContainer.innerHTML;
+    document.getElementById('first-text').style.display = 'none';
+    //document.getElementById('score-display').textContent  = 'Well done! Guess the other team';
     document.getElementById(`attempt${currentAttempt}`).style.opacity = 0.3; // Grey out the football icon
   }
 }
@@ -93,29 +114,35 @@ function displayMessage(team1Correct, team2Correct) {
   if (team1Correct && team2Correct) {
     message = ''; // No message if both teams are correct
   } else if (team1Correct || team2Correct) {
-    message = 'Well done! One more to get.';
+    message = 'Well done! Guess the other team.';
   } else {
     message = 'Not quite! Guess again.';
   }
-  document.getElementById('feedback-message').textContent = message;  // This updates the message on the page
+  document.getElementById('score-display').textContent = message;  // This updates the message on the page
 }
 
 
 // Function to check the guessed teams with score matching, allowing either order
 function checkGuess(team1, team2) {
-  const team1Guess = team1.trim().toLowerCase();
-  const team2Guess = team2.trim().toLowerCase();
-  const correctTeam1 = correctTeamsWithScores[0].team.trim().toLowerCase();
-  const correctTeam2 = correctTeamsWithScores[1].team.trim().toLowerCase();
+  const team1Guess = team1.trim().toUpperCase();
+  const team2Guess = team2.trim().toUpperCase();
+  const correctTeam1 = correctTeamsWithScores[0].team.trim().toUpperCase();
+  const correctTeam2 = correctTeamsWithScores[1].team.trim().toUpperCase();
 
   if (team1Guess === correctTeam1 || team2Guess === correctTeam1) {
     document.getElementById('team1').value = correctTeam1;
-    document.getElementById('team1').disabled = true; // Disable team1 input field
+    document.getElementById('team1').disabled = true; 
+    document.getElementById('team1').classList.add('correct-team');
+  }else{
+    document.getElementById('team1').value = '';
   }
 
   if (team1Guess === correctTeam2 || team2Guess === correctTeam2) {
     document.getElementById('team2').value = correctTeam2;
     document.getElementById('team2').disabled = true; // Disable team2 input field
+    document.getElementById('team2').classList.add('correct-team');
+  }else{
+    document.getElementById('team2').value = '';
   }
 
   const team1Correct = (team1Guess === correctTeam1 || team2Guess === correctTeam1);
@@ -144,14 +171,18 @@ let clues = [];
 
 // Display the result message
 function displayResult(message) {
-  alert(message); // Temporary alert, update to proper display if needed
+  Swal.fire({
+    text: message,
+    icon: "info",
+    confirmButtonText: "OK"
+  });
 }
 
 // Display the final message after guessing the year
 function displayFinalMessage(message) {
   document.getElementById('year-guess-page').style.display = 'none';
   document.getElementById('final-result').style.display = 'block';
-  document.getElementById('final-message').textContent = message;
+  document.getElementById('final-message').innerHTML  = message;
 }
 
 // Function to load CSV and parse match data
@@ -188,7 +219,8 @@ function parseCSV(data) {
         team2_scorers: fields[10].trim(),
         team1_players: fields.slice(11, 22),  // Team 1 players
         team2_players: fields.slice(22, 33),  // Team 2 players
-        link_to_highlights: fields[33] ? fields[33].trim() : ""  // Check if field 33 exists
+        link_to_highlights: fields[33] ? fields[33].trim() : "",  // Check if field 33 exists
+        year: fields[34].trim()
       };
     }
   }).filter(Boolean);  // Filter out any undefined rows
@@ -197,6 +229,7 @@ function parseCSV(data) {
 
 // Function to start a new match from the loaded matches
 function startNewMatch(matches) {
+  
   const today = new Date();
   const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 
@@ -205,27 +238,46 @@ function startNewMatch(matches) {
   const selectedMatch = matches[matchIndex];
 
   console.log(selectedMatch);  // This will show the match details in the browser's console
-
   correctTeamsWithScores = [
     { team: selectedMatch.team1, score: selectedMatch.score.split("-")[0] },
     { team: selectedMatch.team2, score: selectedMatch.score.split("-")[1] }
   ];
   correctYear = selectedMatch.year;
   clues = [
-  `Tournament: ${selectedMatch.tournament}`,
-  `Venue: ${selectedMatch.venue}`,
-  `Scorers: Team 1 - ${selectedMatch.team1_scorers}, Team 2 - ${selectedMatch.team2_scorers}`,  
-  `Players: Team 1 - ${selectedMatch.team1_players.join(", ")}, Team 2 - ${selectedMatch.team2_players.join(", ")}`
+  `<strong>tournament:</strong> ${selectedMatch.tournament}`,
+  `<strong>Venue:</strong> ${selectedMatch.venue}`,
+  `<strong>Scorers:</strong> ${selectedMatch.team1_scorers} - ${selectedMatch.team2_scorers}`,  
+  `${selectedMatch.team1_players.join(", ")}<br>----------------------------<br>${selectedMatch.team2_players.join(", ")}`
 ];
 
-  // Update the match score and colors on the page after selectedMatch is properly set
-  document.getElementById('match-score').textContent = selectedMatch.score;
+  
+  function applyColorWithBorder(elementId, color) {
+    const svg = document.getElementById(elementId);
+    if (svg) {
+        svg.style.fill = color; // Apply color to the SVG
 
-  // Update the team colors
-  document.getElementById('team1-color').style.backgroundColor = selectedMatch.team1_shirt;
-  document.getElementById('team2-color').style.backgroundColor = selectedMatch.team2_shirt;
+        svg.querySelectorAll("path").forEach(el => {
+            el.setAttribute("fill", color);
 
-  // Add the team color boxes with the correct colors
+            if (color.toLowerCase() === "#ffffff" || color.toLowerCase() === "white") {
+                el.setAttribute("stroke", "black");
+                el.setAttribute("stroke-width", "1");
+            } else {
+                el.removeAttribute("stroke");
+                el.removeAttribute("stroke-width");
+            }
+        });
+    }
+}
+  
+
+// After applying color
+applyColorWithBorder("team1-color1", selectedMatch.team1_shirt);
+applyColorWithBorder("team2-color1", selectedMatch.team2_shirt);
+applyColorWithBorder("shortsIcon1", selectedMatch.team1_shorts);
+applyColorWithBorder("shortsIcon2", selectedMatch.team2_shorts);
+
+
   document.getElementById('team1-color').classList.add('color-box');
   document.getElementById('team2-color').classList.add('color-box');
 }
