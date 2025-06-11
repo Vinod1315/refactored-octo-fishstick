@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
   margin: 0;
   padding: 0;
   display: flex;
@@ -8,8 +8,10 @@ body {
   align-items: center;
   height: 100vh;
 }
-
-#home-page, #how-to-play-page, #game-page {
+html, body {
+  background-color: #ffffff !important;
+}
+#home-page, #game-page {
   width: 100%;
   max-width: 600px;
   text-align: center;
@@ -18,11 +20,23 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-
+#how-to-play-page{
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 h1, h2 {
   font-size: 1.5em;
 }
-
+h1, h2, h3{
+  font-family: 'Georgia', serif;
+}
+p, div, span, a, input, textarea, button{
+  font-family: 'Poppins', sans-serif;
+}
 #score-panel {
   margin-top: 20px;
 }
@@ -42,6 +56,7 @@ button {
   border: none;
   cursor: pointer;
   font-size: 1em;
+  font-weight: bold;
 }
 
 .football {
@@ -67,6 +82,7 @@ ul {
   margin-top: 40px;
   font-size: 0.9em;
   color: grey;
+  text-align: center;
 }
 /* Add these to the bottom of your existing CSS */
 
@@ -78,9 +94,93 @@ ul {
 
 /* Add team color blocks styling */
 .color-box {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   display: inline-block;
-  margin-right: 10px;
+  margin: 10px;
   border: 1px solid #000;
+}
+
+#how-to-play-page ul{
+  padding-left: 30px;
+}
+#how-to-play-page ul li{
+  list-style: circle;
+}
+.button-c{
+  text-align: center;
+}
+#shortsIcon1 {
+  display: inline-block;
+  position: relative;
+  top: -25px;
+}
+#shortsIcon2 {
+  display: inline-block;
+  position: relative;
+  top: -25px;
+}
+#team2-color1, #team1-color1{
+  padding-top: 15px;
+}
+.vs {
+  position: relative;
+  bottom: 70px;
+  font-weight: bold;
+}
+.football-icon {
+  text-align: left;
+  font-size: 22px;
+}
+.correct-team{
+  font-weight: bold;
+}
+#score-team1{
+  display: inline-block;
+}
+#score-team2{
+  display: inline-block;
+}
+.playbtn{
+  text-align: center;
+}
+.submitbtn{
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+.share-btn {
+  display: inline-flex; 
+  align-items: center; 
+  border: 1px solid red;
+  border-radius: 10px;
+  padding: 5px 10px;
+  gap: 5px; /* Space between text and image */
+  cursor: pointer;
+}
+
+.share-btn img {
+  width: 20px; /* Adjust icon size */
+  height: auto;
+}
+.share-btn a {
+  text-decoration: none;
+}
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  body{
+    display: block;
+  }
+  #home-page, #game-page{
+    display: inline;
+    padding: 20px;
+  }
+  #how-to-play-page{
+    display: inline;
+    padding: 20px;
+  }
 }
